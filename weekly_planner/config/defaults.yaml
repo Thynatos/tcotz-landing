@@ -1,0 +1,40 @@
+costs:
+  holding: 1.0
+  backlog: 160.0
+  b12_penalty: 10000.0
+
+horizons:
+  planning_weeks: 8
+
+solver:
+  time_limit: 300
+
+initial_state:
+  p1_inv: 10000
+  p2_inv: 20000
+  p3_inv: 250000
+  p4_inv: 0
+  p1_bl: 0
+  p2_bl: 0
+  p3_bl: 0
+  p4_bl: 0
+  base_rm: 2000000
+  rm4: 6000000
+  rm7: 4000000
+  rm8: 1000000
+
+stochastic:
+  enabled: true
+  alpha_base: 0.20
+  n_scenarios: 10
+  fan_out_rate: 0.0
+
+machine_capacity:
+  line1:
+    1: 1000
+    2: 500
+    3: 2000
+  line2_p3:
+    1: 10000
+    2: 25000
+  line_p4: 80000

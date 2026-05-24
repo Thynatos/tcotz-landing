@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+*.zip
+runs/
+graphify-out/cache/
+.streamlit/
+.pytest_cache/

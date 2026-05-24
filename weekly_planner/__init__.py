@@ -1,0 +1,3 @@
+"""
+BobaCo Weekly Planner application.
+"""
