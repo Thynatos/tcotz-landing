@@ -3,6 +3,6 @@ __pycache__/
 *.pyo
 *.zip
 runs/
-graphify-out/cache/
+graphify-out/
 .streamlit/
 .pytest_cache/
