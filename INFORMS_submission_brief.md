@@ -97,14 +97,41 @@ A **Python + Streamlit decision support system** ("Weekly Planner") that runs au
 - Pilot did not coincide with peak season but validated the operational workflow
 
 ### Literature Positioned Against
+
+**Currently cited (8 papers — all kept):**
 - Nahmias (2015) — aggregate production planning, deterministic inventory control
-- Karimi et al. (2003) — CLSP variants, NP-hardness motivation for heuristic
-- Maes et al. (1991) — MLCLSP with bill-of-materials (our system fits this family)
-- Pochet & Wolsey (1988) — backlogging in lot-sizing
-- Bitran & Hax (1982) — hierarchical production planning formalization
-- Liberatore & Miller (1985) — HPP implemented in industry (American Olean Tile)
-- Sahin et al. (2013) — rolling-horizon schemes in supply chains
-- Birge & Louveaux (2011) — two-stage stochastic programming framework
+- Karimi et al. (2003) — CLSP variants, NP-hardness motivation
+- Maes et al. (1991) — MLCLSP with bill-of-materials
+- Pochet & Wolsey (1988) — backlogging in lot-sizing (*Mathematical Programming*)
+- Bitran & Hax (1982) — hierarchical production planning (*Operations Research*)
+- Liberatore & Miller (1985) — HPP in industry, American Olean Tile (*Interfaces*)
+- Sahin et al. (2013) — rolling-horizon schemes (*IJPR*)
+- Birge & Louveaux (2011) — two-stage stochastic programming framework (Springer textbook)
+
+**In report.bib but unused — activate first (zero new work):**
+- **Türkmen et al. (2021)** (`turkmen2021`) — multi-stage production planning for a small food & beverage company; closest existing case study to BobaCo in the literature
+- **Körpeoğlu, Yaman & Aktürk (2011)** (`korpeoglu2011`) — stochastic programming for master production scheduling, *EJOR*
+
+**New high-quality citations to add (see LITREVIEW_PLAN.md for full BibTeX):**
+- **Birge (1982)** — *Mathematical Programming*, 296 citing papers — canonical VSS definition; your VSS analysis currently has no citation for what VSS formally is
+- **Billington, McClain & Thomas (1983)** — *Management Science*, 375 citing papers — formally defined and named MLCLSP; grounds the long-term aggregate model
+- **Drexl & Kimms (1997)** — *European Journal of Operational Research*, 558 citing papers — THE taxonomy reference for lot-sizing AND scheduling problems; grounds the short-term MILP (which has machine-assignment binaries, not classical MLCLSP setup binaries)
+- **Mula, Poler & García-Sabater (2006)** — *IJPE*, 572 citing papers — the most-cited review of stochastic production planning; situates your work in the 20-year research tradition
+- **Helber & Sahling (2010)** — *IJPE*, 203 citing papers — leading MLCLSP methods paper; strengthens the NP-hardness motivation for hierarchical decomposition
+- **Gelders & Van Wassenhove (1982)** — *J. Operations Management* — HPP cross-level integration; justifies inventory-target linking constraints at days 24 and 48
+
+**Secondary additions (if space allows):**
+- **Toledo, França & Morábito (2009)** — *IJPR*, 94 citing papers — two-level lot-sizing and scheduling at a real soft drink company with parallel machines; structurally closest analog to BobaCo in the literature
+- **Mediouni et al. (2021)** — food/beverage industry MLCLSP case study
+- **Cruz et al. (2025)** — rolling horizon + stochastic demand in food production
+
+**Citations dropped from earlier draft:**
+- ❌ Escudero et al. (2007) — *TOP* journal, lower prestige; **replaced by Birge (1982) in Mathematical Programming**
+- ❌ Alvarez et al. (2021) — inventory routing (IRP), wrong domain; **replaced by Körpeoğlu 2011 (already in bib)**
+
+**Bib bug to fix:** Remove duplicate `bitran1982` entry; keep `bitran1982hpp`. Update all `\cite{bitran1982}` → `\cite{bitran1982hpp}` in the `.tex` file.
+
+**12-day critical backlog:** No exact literature analog exists — this is correct. Frame it as a novel modeling extension of Pochet & Wolsey (1988) grounded in empirically observed order cancellation behavior. Calling this an original modeling contribution is stronger than forcing a citation.
 
 ---
 
@@ -182,16 +209,25 @@ These changes are about winning, not just compliance.
 - Current abstract doesn't mention the OR methods used or the quantified results. Winning abstracts say what methods were used AND what measurable impact they achieved. The 42% cost reduction and 28.2→0.3 overtime days should be in the abstract.
 
 **Section 2 (System Analysis) — add a crisp problem statement paragraph:**
-- Before the mathematical model, add a short paragraph explicitly stating: "The problem belongs to the MLCLSP family..." and framing why a monolithic exact approach is intractable, motivating the hierarchical heuristic. This tells judges you know where your work sits in the literature.
+- Before the mathematical model, add a short paragraph using the dual classification: the long-term aggregate model belongs to the MLCLSP family (Billington 1983, *Management Science*); the short-term daily MILP — with machine-assignment binaries where production quantity is fully determined by the binary, and a product-exclusivity constraint between Cup and Can — extends beyond MLCLSP into the multi-level lot-sizing AND scheduling problem (LSP) class (Drexl & Kimms 1997, *EJOR*). A full-year daily exact formulation exceeded 2,200 seconds, motivating hierarchical decomposition. This tells judges you know exactly where your work sits in the literature — and that you made the classification carefully, not by default.
 
-**Section 3 (Literature Review) — tighten:**
-- Currently very thorough but slightly long. Each paragraph should end with a one-sentence bridge to your system: "This motivates our use of X in the long-term model." Make the literature do work for the reader, not just demonstrate knowledge.
+**Section 3 (Literature Review) — restructure to 11 paragraphs:**
+- Current 6 paragraphs → expand to 11 with explicit bridge sentences ending each paragraph. See `LITREVIEW_PLAN.md` for the full restructured flow (Table in Section 3).
+- New structure: (1) field framing, (2) CLSP/MLCLSP complexity — cite Billington 1983, (3) lot-sizing AND scheduling (LSP) taxonomy — cite Drexl & Kimms 1997, (4) food/beverage LSP applications — cite Türkmen 2021 + Toledo 2009, (5) backlogging, (6) hierarchical planning, (7) HPP integration, (8) rolling horizon, (9) two-stage stochastic, (10) VSS definition — cite Birge 1982, (11) synthesis.
+- The short-term MILP must NOT be called "MLCLSP" in the lit review — it belongs in paragraph 3 as a lot-sizing and scheduling problem.
+- Synthesis paragraph must include the phrase "the first system of this kind piloted live at a B2B beverage manufacturer" — this is the generalizability frame judges want.
+
+**Section 4 (Methodology) — add problem classification paragraph:**
+- Insert as the very first paragraph of Section 4. Use the dual classification: aggregate layer → MLCLSP (Billington 1983, Karimi 2003, Maes 1991, Körpeoğlu 2011); operational layer → multi-level lot-sizing and scheduling (Drexl & Kimms 1997). Name the NP-hardness result and cite the 2,200-second solve time as empirical evidence that exact methods are intractable at full-year daily resolution. See Section 4a of `LITREVIEW_PLAN.md` for the exact language template. This is the paragraph INFORMS judges will read first to assess OR sophistication — do not write it lazily.
 
 **Model sections — unify notation:**
 - Sets $K_1$, $K_2$, $T$, $S$ are re-defined in every sub-model section. Define them once in a shared notation table at the start of Section 4 and reference back. This saves ~1 page.
 
-**Verification section — add a summary table:**
-- Currently the verification results are described in prose. Add a compact summary table: columns = scenario, runtime (exact), runtime (heuristic), objective deviation %, 10-day backlog deviation. Makes the computational case for the heuristic visually clear.
+**Verification section — add a computational evidence table:**
+- Currently the heuristic justification is in prose. Add a table: columns = scenario, exact solver runtime (s), heuristic runtime (s), objective deviation (%), 10-day backlog deviation. Makes the computational case for the heuristic visually undeniable in 5 seconds of reading.
+
+**Reframe the 12-day backlog:**
+- Currently described as a constraint detail. Reframe as an **original modeling contribution**: two-tier backlog penalty that extends Pochet & Wolsey (1988) by distinguishing operationally tolerable short delays from order-cancellation-risk backlogs. No new citation needed — the modeling choice is the contribution.
 
 **Conclusion — add a forward-looking sentence on generalizability:**
 - INFORMS judges reward work that has broader OR significance beyond one company. Add 1–2 sentences: the hierarchical stochastic approach is directly applicable to any SME facing seasonal demand with long-horizon procurement lead times and a recently expanded storage capacity. This frames the contribution as generalizable.
