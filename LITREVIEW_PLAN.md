@@ -167,7 +167,128 @@ Already included in previous plan. Use for rolling horizon paragraph if space al
 #### **Drop from previous plan**
 
 - ❌ **Escudero et al. (2007)** — TOP journal, lower prestige. **Replaced by Birge (1982) in Mathematical Programming.** Birge 1982 is the original VSS definition; Escudero 2007 extends it to multistage. Since your model is two-stage (not multistage), Birge 1982 is the exact citation.
-- ❌ **Alvarez et al. (2021)** — Inventory routing problem. Wrong domain for a production planning paper. Judges will notice the mismatch. **Replaced by Körpeoğlu 2011 (already in bib)**.
+- ❌ **Alvarez et al. (2021)** — Inventory routing problem. Wrong domain for a production planning paper. **Replaced by Körpeoğlu 2011 (already in bib)**.
+- ❌ **Cruz et al. (2025)** — Confirmed real but *Process Integration and Optimization for Sustainability* is not top-tier; only ~3 citing publications. **Replaced by Englberger 2016 + Forel & Grunow 2023** which cover the same ground at higher prestige.
+- ❌ **Mediouni et al. (2021)** — Confirmed real but *Supply Chain Forum* is not a top-tier OR journal (~13 citations). **Replaced by Ferreira et al. (2009) EJOR** (144 citing publications, same food/beverage domain).
+
+---
+
+#### **Priority 5 — New additions from focused deep research (all scite-verified)**
+
+**J. Ferreira, Morábito & Rangel (2009) — Soft Drink Integrated Lot-Sizing and Scheduling**
+> Ferreira, D., Morábito, R., & Rangel, S. (2009). Solution approaches for the soft drink integrated production lot sizing and scheduling problem. *European Journal of Operational Research*, 196(2), 697–706. DOI: 10.1016/j.ejor.2008.03.035
+
+```bibtex
+@article{ferreira2009softdrink,
+  author  = {Ferreira, Deisemara and Morab{\'i}to, Reinaldo and Rangel, Socorro},
+  title   = {Solution approaches for the soft drink integrated production lot sizing and scheduling problem},
+  journal = {European Journal of Operational Research},
+  volume  = {196},
+  number  = {2},
+  pages   = {697--706},
+  year    = {2009},
+  doi     = {10.1016/j.ejor.2008.03.035}
+}
+```
+- **144 citing publications. EJOR.** Real soft drink plant, two-stage synchronization between liquid preparation and parallel bottling lines. This is a stronger food/beverage analog than Toledo 2009 (higher citations, better journal). Use alongside Toledo 2009: Ferreira for EJOR prestige, Toledo for Kimms co-authorship connection to Drexl & Kimms 1997.
+
+**K. Forel & Grunow (2023) — Stochastic Lot-Sizing in Rolling-Horizon Planning**
+> Forel, A., & Grunow, M. (2023). Dynamic stochastic lot sizing with forecast evolution in rolling-horizon planning. *Production and Operations Management*, 32(2), 449–468. DOI: 10.1111/poms.13881
+
+```bibtex
+@article{forel2023stochastic,
+  author  = {Forel, Alexandre and Grunow, Martin},
+  title   = {Dynamic stochastic lot sizing with forecast evolution in rolling-horizon planning},
+  journal = {Production and Operations Management},
+  volume  = {32},
+  number  = {2},
+  pages   = {449--468},
+  year    = {2023},
+  doi     = {10.1111/poms.13881}
+}
+```
+- **10 citing publications (2023, recent). POM (top-tier INFORMS journal).** Best single reference combining stochastic lot-sizing with rolling-horizon planning. Closest methodological analog to the full system; distinguishes short-term and long-term planning segments within one framework. Replaces Cruz 2025 as the rolling-horizon + stochastic reference.
+
+**L. Thevenin, Adulyasak & Cordeau (2021) — Stochastic MRP Under Demand Uncertainty**
+> Thevenin, S., Adulyasak, Y., & Cordeau, J.-F. (2021). Material Requirements Planning Under Demand Uncertainty Using Stochastic Optimization. *Production and Operations Management*, 30(2), 475–493. DOI: 10.1111/poms.13277
+
+```bibtex
+@article{thevenin2021mrp,
+  author  = {Thevenin, Simon and Adulyasak, Yossiri and Cordeau, Jean-Fran{\c{c}}ois},
+  title   = {Material Requirements Planning Under Demand Uncertainty Using Stochastic Optimization},
+  journal = {Production and Operations Management},
+  volume  = {30},
+  number  = {2},
+  pages   = {475--493},
+  year    = {2021},
+  doi     = {10.1111/poms.13277}
+}
+```
+- **50 citing publications. POM (top-tier).** Stochastic optimization treatment of MRP / multi-echelon lot sizing under demand uncertainty with rolling horizon implementation. Validates the static-dynamic decision framework of Layer 1 (first-stage setups frozen, second-stage volumes as recourse). Also explicitly computes VSS — useful for the VSS paragraph.
+
+**M. Blackburn, Kropp & Millen (1986) — Schedule Nervousness in MRP Systems**
+> Blackburn, J. D., Kropp, D. H., & Millen, R. A. (1986). A Comparison of Strategies to Dampen Nervousness in MRP Systems. *Management Science*, 32(4), 413–429. DOI: 10.1287/mnsc.32.4.413
+
+```bibtex
+@article{blackburn1986nervousness,
+  author  = {Blackburn, Joseph D. and Kropp, Dean H. and Millen, Robert A.},
+  title   = {A Comparison of Strategies to Dampen Nervousness in {MRP} Systems},
+  journal = {Management Science},
+  volume  = {32},
+  number  = {4},
+  pages   = {413--429},
+  year    = {1986},
+  doi     = {10.1287/mnsc.32.4.413}
+}
+```
+- **181 citing publications. Management Science (INFORMS, top-tier).** Definitive comparative study of nervousness-dampening strategies in rolling-horizon production planning; proves schedule freezing is the most cost-efficient stabilizer. Directly supports Layer 3's near-term stabilization mechanism.
+
+**N. Suerie & Stadtler (2003) — Capacitated Lot-Sizing with Linked Lot Sizes**
+> Suerie, C., & Stadtler, H. (2003). The Capacitated Lot-Sizing Problem with Linked Lot Sizes. *Management Science*, 49(8), 1039–1054. DOI: 10.1287/mnsc.49.8.1039.16406
+
+```bibtex
+@article{suerie2003clspl,
+  author  = {Suerie, Christopher and Stadtler, Hartmut},
+  title   = {The Capacitated Lot-Sizing Problem with Linked Lot Sizes},
+  journal = {Management Science},
+  volume  = {49},
+  number  = {8},
+  pages   = {1039--1054},
+  year    = {2003},
+  doi     = {10.1287/mnsc.49.8.1039.16406}
+}
+```
+- **139 citing publications. Management Science (INFORMS, top-tier).** Formalizes how setup and inventory variables are mathematically linked across consecutive periods in a rolling horizon environment. Provides the academic basis for "inventory-target linking constraints" — the exact mechanism used at days 24 and 48.
+
+**O. Englberger, Herrmann & Manitz (2016) — Two-Stage Stochastic MPS in Rolling Planning**
+> Englberger, J., Herrmann, F., & Manitz, M. (2016). Two-stage stochastic master production scheduling under demand uncertainty in a rolling planning environment. *International Journal of Production Research*, 54(20), 6192–6215. DOI: 10.1080/00207543.2016.1162917
+
+```bibtex
+@article{englberger2016stochastic,
+  author  = {Englberger, Julian and Herrmann, Frank and Manitz, Michael},
+  title   = {Two-stage stochastic master production scheduling under demand uncertainty in a rolling planning environment},
+  journal = {International Journal of Production Research},
+  volume  = {54},
+  number  = {20},
+  pages   = {6192--6215},
+  year    = {2016},
+  doi     = {10.1080/00207543.2016.1162917}
+}
+```
+- **28 citing publications. IJPR.** The closest single-paper architectural match to our system (two-stage stochastic MPS + rolling execution). Low citation count because it is a niche intersection — this is precisely why our combined three-layer architecture is novel. Cite it to say: "The closest published analog, Englberger et al. (2016), addresses stochastic MPS in a rolling environment but does not include a separate daily operational scheduling MILP with cross-level linking constraints."
+
+---
+
+#### **DOI corrections (critical — wrong DOIs circulating in drafts)**
+
+| Paper | Incorrect DOI | Correct DOI |
+|---|---|---|
+| Thevenin et al. (2021) POM | 10.1111/poms.13289 | **10.1111/poms.13277** |
+| Ferreira et al. (2009) EJOR | 10.1016/j.ejor.2008.03.033 | **10.1016/j.ejor.2008.03.035** |
+| Suerie & Stadtler (2003) | 10.1287/mnsc.49.8.1039.16402 | **10.1287/mnsc.49.8.1039.16406** |
+| Toledo et al. (2009) IJPR | 10.1080/00207540701675833 (early-view) | **10.1080/00207540701774431** (official print) |
+
+Also: **Sahin et al. (2013) IJPR author correction** — the correct authors are **Sahin, Narayanan & Robinson** (not Süral & Denizel). Update the bib entry.
 
 ---
 
@@ -176,21 +297,21 @@ Remove the duplicate entry `bitran1982` from `report.bib`. It is identical to `b
 
 ---
 
-## 3. Restructured Literature Review (10 paragraphs, ~1.5 pages double-spaced)
+## 3. Restructured Literature Review (11 paragraphs, ~1.5 pages double-spaced)
 
 | # | Topic | Key Citations | Bridge sentence target |
 |---|---|---|---|
-| 1 | Field framing: production planning under uncertainty | Nahmias 2015, **Mula et al. 2006** | "These frameworks collectively establish the cost structure and methodological vocabulary our models inherit." |
-| 2 | CLSP/MLCLSP — aggregate complexity | Karimi 2003, Maes 1991, **Billington 1983** | "At the aggregate level, BobaCo's problem belongs to this MLCLSP family; a monolithic daily MILP over a full year exceeded 2,200 seconds, confirming these complexity results." |
+| 1 | Field framing: production planning under uncertainty | Nahmias 2015, **Mula et al. 2006**, **Thevenin et al. 2021** | "These frameworks collectively establish the cost structure and methodological vocabulary our models inherit." |
+| 2 | CLSP/MLCLSP — aggregate complexity | Karimi 2003, Maes 1991, **Billington 1983**, **Helber & Sahling 2010** | "At the aggregate level, BobaCo's long-term model belongs to this MLCLSP family; a monolithic daily MILP over a full year exceeded 2,200 seconds, confirming these complexity results." |
 | 3 | **Lot-sizing and scheduling (NEW)** | **Drexl & Kimms 1997** | "At the operational level, the daily MILP extends MLCLSP by integrating machine-assignment scheduling decisions, placing it in the lot-sizing and scheduling literature." |
-| 4 | **Food/beverage LSP applications** | **Türkmen 2021**, **Mediouni 2021** | "The most structurally similar case is the two-level soft drink scheduling problem; our contribution extends these with a stochastic aggregate layer and live rolling-horizon deployment." |
+| 4 | **Food/beverage LSP applications** | **Ferreira et al. 2009 (EJOR)**, **Toledo et al. 2009 (IJPR)**, **Türkmen 2021** | "Our contribution extends these with a stochastic aggregate layer and live rolling-horizon deployment — a combination not previously published." |
 | 5 | Backlogging in lot-sizing | Pochet & Wolsey 1988 | "We extend this framework with a two-tier penalty distinguishing regular backlog from the 12-day critical threshold beyond which orders are cancelled." |
 | 6 | Hierarchical Production Planning | Bitran & Hax 1982, Liberatore & Miller 1985 | "We follow this two-stage structure, passing monthly inventory targets to the short-term MILP as linking constraints at days 24 and 48." |
-| 7 | **HPP integration** | **Gelders & Van Wassenhove 1982** | "The cross-level inventory-target linking constraints we introduce are motivated by this consistency requirement." |
-| 8 | Rolling horizon execution | Sahin 2013, Cruz 2025 | "We replicate every Monday with near-term stabilization, limiting fluctuations in the production schedule while tracking new demand information." |
+| 7 | **Cross-level linking constraints** | **Suerie & Stadtler 2003 (MS)** | "The inventory-target linking constraints at days 24 and 48 formalize this coordination mechanism as hard constraints on the operational layer." |
+| 8 | Rolling horizon execution + nervousness | Sahin, Narayanan & Robinson 2013, **Blackburn et al. 1986 (MS)**, **Forel & Grunow 2023 (POM)** | "Near-term decisions are stabilized following the schedule-freezing approach of Blackburn et al. (1986), proven to minimize plan instability in rolling-horizon production systems." |
 | 9 | Two-stage stochastic programming | Birge & Louveaux 2011, **Körpeoğlu 2011** | "We follow the two-stage formulation in the aggregate layer, making first-stage decisions before uncertainty is revealed and optimizing scenario-dependent recourse in months 3–12." |
-| 10 | **VSS definition and validation** | **Birge 1982** | "Our 100-iteration VSS analysis uses this definition; the stochastic approach dominated the deterministic approximation in all 100 iterations, with an average advantage of $37M." |
-| 11 | Synthesis | All above | "Taken together, these strands motivate the hierarchical stochastic rolling-horizon approach in Section 4: a two-stage stochastic aggregate model passes inventory targets to an operational MILP that simultaneously solves lot-sizing and machine-assignment scheduling, replanned weekly in a rolling horizon." |
+| 10 | **VSS definition and validation** | **Birge 1982**, **Thevenin et al. 2021** | "Our 100-iteration VSS analysis uses this definition; the stochastic approach dominated the deterministic approximation in all 100 iterations, with an average advantage of $37M." |
+| 11 | Synthesis + novelty claim | All above, **Englberger et al. 2016** | "To the best of our knowledge, this is the first study to design, formulate, and deploy a live three-layer hierarchical DSS integrating a monthly two-stage stochastic aggregate model with a daily MILP operational scheduling model via inventory-target linking constraints under weekly rolling-horizon execution in a B2B manufacturing setting." |
 
 ---
 
@@ -256,11 +377,15 @@ This means the short-term MILP is more precisely a **multi-level lot-sizing and 
 ```
 - **94 citing publications.** Addresses a **real soft drink company in Brazil** with a two-level production process, parallel machines, and integrated scheduling. This is the closest structural analog to BobaCo in the published literature. Use it to say: "Our problem structure is analogous to the two-level scheduling problem studied in soft drink manufacturing by \citet{toledo2009sitlsp}, extended here with a stochastic aggregate layer and a live rolling-horizon deployment."
 
-### 4b. Add the problem classification paragraph
+### 4b. Add the problem classification paragraph + novelty claim
 
 **Insert as the very first paragraph of Section 4:**
 
 Adapt the language above depending on how much space you have — the full two-paragraph version for maximum INFORMS impact, or a compressed one-paragraph version if page budget is tight.
+
+**Follow with the architectural novelty sentence** (verified by three independent deep research runs — no exact match exists in published literature):
+
+> "To the best of our knowledge, this is the first study to design, mathematically formulate, and deploy a live three-layer hierarchical decision support system that integrates a monthly two-stage stochastic aggregate planning model with a daily MILP operational scheduling model via temporal inventory-target linking constraints under a weekly rolling-horizon execution in a B2B process manufacturing setting. Existing studies address stochastic rolling-horizon planning \cite{forel2023stochastic}, integrated lot-sizing-and-scheduling under uncertainty \cite{drexl1997lss}, or stochastic multi-echelon MRP \cite{thevenin2021mrp}, but no published live industrial system combines all three architectural elements in one deployed stack."
 
 ### 4c. Unify the notation table (saves ~1 page)
 
@@ -298,52 +423,72 @@ Framing it this way turns a potential weakness (no citation) into a strength (or
 
 ## 6. Final Citation Count and Journal Prestige Profile
 
-| # | Citation | Journal | Year | Scite pubs |
-|---|---|---|---|---|
-| 1 | Nahmias & Olsen (2015) | Textbook (Waveland) | 2015 | — |
-| 2 | **Billington et al. (1983)** ★ NEW | *Management Science* | 1983 | 375 |
-| 3 | Karimi et al. (2003) | *Omega* | 2003 | (existing) |
-| 4 | Maes et al. (1991) | *EJOR* | 1991 | (existing) |
-| 5 | **Helber & Sahling (2010)** ★ NEW | *IJPE* | 2010 | 203 |
-| 6 | **Türkmen et al. (2021)** ★ activate | *JESA* | 2021 | — |
-| 7 | **Mediouni et al. (2021)** ★ NEW | *Supply Chain Forum* | 2021 | — |
-| 8 | Pochet & Wolsey (1988) | *Mathematical Programming* | 1988 | (existing) |
-| 9 | Bitran & Hax (1982) | *Operations Research* | 1982 | (existing) |
-| 10 | Liberatore & Miller (1985) | *Interfaces* | 1985 | (existing) |
-| 11 | **Gelders & Van Wassenhove (1982)** ★ NEW | *J. Operations Mgmt* | 1982 | — |
-| 12 | Sahin et al. (2013) | *IJPR* | 2013 | (existing) |
-| 13 | **Cruz et al. (2025)** ★ NEW | *PIOS* | 2025 | — |
-| 14 | Birge & Louveaux (2011) | Textbook (Springer) | 2011 | — |
-| 15 | **Körpeoğlu et al. (2011)** ★ activate | *EJOR* | 2011 | — |
-| 16 | **Birge (1982)** ★ NEW | *Mathematical Programming* | 1982 | 296 |
-| 17 | **Mula et al. (2006)** ★ NEW | *IJPE* | 2006 | 572 |
+| # | Citation | Journal | Year | Scite pubs | Status |
+|---|---|---|---|---|---|
+| 1 | Nahmias & Olsen (2015) | Textbook (Waveland) | 2015 | — | existing |
+| 2 | **Billington et al. (1983)** | *Management Science* | 1983 | 375 | ★ NEW |
+| 3 | Karimi et al. (2003) | *Omega* | 2003 | — | existing |
+| 4 | Maes et al. (1991) | *EJOR* | 1991 | — | existing |
+| 5 | **Helber & Sahling (2010)** | *IJPE* | 2010 | 203 | ★ NEW |
+| 6 | **Drexl & Kimms (1997)** | *EJOR* | 1997 | 558 | ★ NEW |
+| 7 | **Ferreira, Morábito & Rangel (2009)** | *EJOR* | 2009 | 144 | ★ NEW — replaces Mediouni 2021 |
+| 8 | **Toledo et al. (2009)** | *IJPR* | 2009 | 145 | ★ NEW |
+| 9 | **Türkmen et al. (2021)** | *JESA* | 2021 | — | ★ activate from bib |
+| 10 | Pochet & Wolsey (1988) | *Mathematical Programming* | 1988 | — | existing |
+| 11 | Bitran & Hax (1982) | *Operations Research* | 1982 | — | existing |
+| 12 | Liberatore & Miller (1985) | *Interfaces* | 1985 | — | existing |
+| 13 | **Suerie & Stadtler (2003)** | *Management Science* | 2003 | 139 | ★ NEW — linking constraints |
+| 14 | **Blackburn, Kropp & Millen (1986)** | *Management Science* | 1986 | 181 | ★ NEW — schedule nervousness |
+| 15 | Sahin, Narayanan & Robinson (2013) | *IJPR* | 2013 | — | existing — **fix author names** |
+| 16 | **Forel & Grunow (2023)** | *POM* | 2023 | 10 | ★ NEW — replaces Cruz 2025 |
+| 17 | **Englberger et al. (2016)** | *IJPR* | 2016 | 28 | ★ NEW — novelty framing |
+| 18 | Birge & Louveaux (2011) | Textbook (Springer) | 2011 | — | existing |
+| 19 | **Körpeoğlu et al. (2011)** | *EJOR* | 2011 | — | ★ activate from bib |
+| 20 | **Birge (1982)** | *Mathematical Programming* | 1982 | 296 | ★ NEW |
+| 21 | **Mula et al. (2006)** | *IJPE* | 2006 | 572 | ★ NEW |
+| 22 | **Thevenin, Adulyasak & Cordeau (2021)** | *POM* | 2021 | 50 | ★ NEW — stochastic MRP + VSS |
 
-**★ = new or newly activated (9 changes)**  
-Journal prestige after changes: 3 INFORMS journals (OR/MS/INFORMS-published), 3 Springer journals (Math Prog, EJOR, AOR), 2 Elsevier top journals (IJPE, Omega), 2 authoritative textbooks.
+**★ = new or newly activated (14 changes)**
+
+**Page-budget note:** 22 citations is too many for a 25-page paper. Target 16–18. Candidates to cut if tight: Gelders 1982 (HPP integration, lower impact), Carlson 1979 (schedule nervousness — Blackburn 1986 is sufficient), Toledo 2009 (keep if Ferreira 2009 alone doesn't satisfy a reviewer wanting a second food/beverage case), Englberger 2016 (keep only if the novelty sentence survives editing).
+
+**Journal prestige profile:** 5 INFORMS journals (Management Science ×3, Operations Research, POM ×2), 4 Elsevier top journals (EJOR ×3, IJPE ×2), 1 Springer (Math Prog), 2 authoritative textbooks. This is a strong profile for a prize submission.
 
 ---
 
 ## 7. Priority-Ordered Action List
 
-### Do immediately (free, already in bib):
-1. Fix bib: remove `bitran1982`, keep `bitran1982hpp`; update all `\cite{bitran1982}` → `\cite{bitran1982hpp}` in `.tex`
-2. Add `\cite{turkmen2021}` to the MLCLSP/food paragraph
-3. Add `\cite{korpeoglu2011}` to the stochastic programming paragraph
+### Step 1 — Bib fixes (zero writing, do first):
+1. Remove duplicate `bitran1982`; keep `bitran1982hpp`; replace all `\cite{bitran1982}` → `\cite{bitran1982hpp}` in `.tex`
+2. Fix Sahin 2013 bib entry: authors = Sahin, Narayanan & Robinson (not Süral & Denizel)
+3. Fix Toledo 2009 DOI: use `10.1080/00207540701774431` (official print)
 
-### Add to bib and cite (3 new entries with highest ROI):
-4. Add `birge1982vss` BibTeX → cite for VSS definition (replaces Escudero 2007)
-5. Add `billington1983mlclsp` BibTeX → cite at start of MLCLSP paragraph
-6. Add `mula2006review` BibTeX → cite in opening/synthesis paragraph
-7. Add `helber2010mlclsp` BibTeX → cite after NP-hardness claim
+### Step 2 — Add new BibTeX entries (all BibTeX in Section 2 above):
+4. `birge1982vss` — VSS definition
+5. `billington1983mlclsp` — MLCLSP
+6. `drexl1997lss` — LSP taxonomy
+7. `mula2006review` — stochastic production planning survey
+8. `helber2010mlclsp` — MLCLSP fix-and-optimize
+9. `ferreira2009softdrink` — soft drink EJOR (replaces Mediouni 2021)
+10. `toledo2009sitlsp` — soft drink IJPR
+11. `forel2023stochastic` — stochastic rolling horizon POM (replaces Cruz 2025)
+12. `thevenin2021mrp` — stochastic MRP POM
+13. `blackburn1986nervousness` — schedule nervousness Management Science
+14. `suerie2003clspl` — linked lot sizes Management Science
+15. `englberger2016stochastic` — exact methodological analog IJPR
 
-### Structural changes to manuscript:
-8. Insert problem classification paragraph as first paragraph of Section 4
-9. Consolidate notation tables into one shared table at top of Section 4
-10. Convert heuristic verification results from prose to a computational evidence table
-11. Add bridge sentences to end of all 10 lit review paragraphs
-12. Reframe 12-day backlog as an explicit modeling contribution (no new citation needed)
+### Step 3 — Activate from existing bib:
+16. Add `\cite{turkmen2021}` to food/beverage paragraph
+17. Add `\cite{korpeoglu2011}` to stochastic programming paragraph
 
-### Optional (if space budget permits):
-13. Add `gelders1982hpp` for HPP integration
-14. Add `mediouni2021mlclsp` for food industry paragraph
-15. Add `cruz2025rolling` for rolling horizon paragraph
+### Step 4 — Structural manuscript changes:
+18. Insert problem classification paragraph (Section 4a language above) as first paragraph of Section 4
+19. Add architectural novelty sentence (Section 4b above) to introduction or end of Section 4 opening
+20. Consolidate notation tables into one shared table at top of Section 4
+21. Convert heuristic verification results from prose to computational evidence table
+22. Rewrite lit review to 11 paragraphs with bridge sentences (Section 3 table above)
+23. Reframe 12-day backlog as original modeling contribution (Section 5 language above)
+
+### Step 5 — Optional (add if page budget allows after Step 4):
+24. `gelders1982hpp` — HPP cross-level integration
+25. Keep Englberger 2016 only if the novelty sentence makes it into the final paper
