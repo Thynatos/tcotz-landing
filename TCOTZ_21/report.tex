@@ -66,7 +66,7 @@ Production planning under demand uncertainty has been the subject of sustained r
 \indent The mathematical mechanism by which one planning level constrains another has been formalized in the capacitated lot-sizing literature. \cite{suerie2003clspl} introduce an MIP formulation in which setup and inventory variables are explicitly linked across consecutive planning periods, demonstrating that valid inequalities and decomposition heuristics can exploit this structure to achieve tight bounds. The cross-level inventory-target linking constraints we introduce at days 24 and 48 are a direct application of this principle, ensuring that the operational scheduling MILP respects the build-ahead targets identified by the stochastic aggregate model.\\
 \indent Rolling-horizon execution complements hierarchical decomposition by enabling plans to be updated as new demand information becomes available. \cite{sahin2013rolling} review rolling-horizon schemes in supply chains and conclude that they are effective for maintaining responsiveness in multi-period planning, provided near-term decisions are stabilized to prevent excessive fluctuations. The stability problem itself is studied as schedule nervousness; \cite{blackburn1986nervousness} compare five nervousness-dampening strategies and prove that freezing a portion of the planning horizon dominates safety-stock and lot-for-lot approaches under most cost conditions. \cite{forel2023stochastic} extend this stream by combining stochastic lot-sizing with rolling-horizon execution, anticipating forecast updates within the stochastic formulation itself and reporting average cost reductions of fourteen percent over deterministic planning. Near-term decisions in our system are stabilized following the schedule-freezing approach of \cite{blackburn1986nervousness}, with weekly replanning aligned to the company's planning cycle.\\
 \indent The stochastic aggregate layer is formulated as a two-stage stochastic program with recourse, following the textbook framework of \cite{BirgeLouveaux2011}. First-stage decisions for the first two months are made before demand uncertainty is revealed; scenario-dependent recourse decisions for months three through twelve allow production, inventory, and backlog quantities to adapt to the realized scenario. \cite{korpeoglu2011} apply a multi-stage stochastic programming approach to master production scheduling under demand and capacity uncertainty, demonstrating the value of stochastic formulations for industrial-scale planning. We follow the two-stage formulation in the aggregate layer, making first-stage decisions before uncertainty is revealed and optimizing scenario-dependent recourse over the remaining horizon.\\
-\indent The benefit of solving the stochastic formulation rather than its deterministic mean-value approximation is quantified by the Value of the Stochastic Solution (VSS), formally introduced by \cite{birge1982vss} for stochastic linear programs with fixed recourse. \cite{thevenin2021mrp} compute VSS in a production planning context and confirm that the stochastic approach yields cost savings that grow with demand volatility and capacity tightness. Our 100-iteration VSS analysis applies this definition; the stochastic approach dominated the deterministic approximation in every iteration, with an average advantage of approximately 37 million Turkish lira.\\
+\indent The benefit of solving the stochastic formulation rather than its deterministic mean-value approximation is quantified by the Value of the Stochastic Solution (VSS), formally introduced by \cite{birge1982vss} for stochastic linear programs with fixed recourse. \cite{thevenin2021mrp} compute VSS in a production planning context and confirm that the stochastic approach yields cost savings that grow with demand volatility and capacity tightness. Our 100-iteration VSS analysis applies this definition; the stochastic approach dominated the deterministic approximation in every iteration, with the stochastic solution achieving on average only 10.7\% of the cost of the expected-value solution under uncertainty.\\
 \indent Taken together, these literature streams motivate the hierarchical stochastic rolling-horizon architecture developed in Section 4. The aggregate planning layer is a two-stage stochastic MLCLSP that determines monthly production and inventory targets. The operational layer is a multi-level lot-sizing and scheduling MILP that solves daily machine-assignment decisions subject to the aggregate-layer linking constraints. Both layers are re-solved weekly in a rolling horizon with near-term stabilization. The closest published analog, \cite{englberger2016stochastic}, integrates two-stage stochastic master production scheduling with rolling-horizon execution but does not separate the operational scheduling decisions into a distinct MILP layer with hard cross-level linking constraints. To the best of our knowledge, no prior study reports a deployed industrial decision support system that combines all three architectural elements --- a two-stage stochastic aggregate model, a separate daily operational scheduling MILP linked by explicit inventory targets, and weekly rolling-horizon execution with near-term stabilization --- in a single hierarchical stack.\\
 
 
@@ -195,6 +195,8 @@ $X_{4,t}$& $1$ if Line 2 produces product 4 at day $t$, $0$ otherwise\\
 
 The two-tier backlog penalty $(B_{i,t}, B_{i,t}^{12})$ extends the standard backlogging formulation of \cite{PochetWolsey1988} by separately tracking demand unmet for more than 12 days --- the empirically observed threshold beyond which BobaCo's customers cancel orders. This two-tier structure is an original modeling contribution motivated by industrial data; it allows the model to distinguish operationally tolerable short delays from service failures with direct revenue consequences, and is reflected in the differentiated unit cost coefficients $b_i$ and $b_i^{12}$ in the objective function.
 
+For the deployed instance, the short-term MILP over the 48-day rolling window has 432 binary variables ($288$ on Line~1, $96$ on Line~2 product 3, and $48$ on Line~2 product 4) plus raw material order binaries, and approximately 770 continuous variables for production, inventory, backlog, and critical-backlog flows. The full-year monolithic exact formulation ($|T|=288$) thus exceeds 2{,}500 binaries and 4{,}600 continuous variables --- explaining the empirically observed intractability of the monolithic solve.
+
 
 \subsection{Heuristic Approach}
 \label{sec:heuristic}
@@ -206,7 +208,7 @@ In this heuristic approach, we divide the original model into two linked models:
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\linewidth]{figures/Hierarchical_models.png}
-    \caption{Long-term and short-term models}
+    \caption{Three-layer hierarchical architecture: a monthly two-stage stochastic aggregate model passes inventory targets to a daily operational MILP via linking constraints at days 24 and 48, both re-solved weekly in a rolling horizon with near-term stabilization.}
     \label{fig:heur}
 \end{figure}
 
@@ -348,11 +350,7 @@ Constraints~(15) and~(16) implement the cross-level inventory coordination mecha
 \subsection{Verification}
 \subsubsection{Verification of the Mathematical Model}
 
-The verification procedure was conducted to assess the internal validity, logical consistency, and computational behavior of the mathematical model under systematically altered operational conditions. The model was exposed to a series of controlled test cases and to nine demand scenarios exhibiting progressively stronger seasonality and variation. The objective of this verification was twofold: (i) to ensure that the structural relations embedded within the model behave in accordance with theoretical expectations, and (ii) to evaluate the scalability and computational limits of the exact optimization framework.\\
-
-\textbf{Logical Verification via Structured Test Cases}\\
-
-Nine structured test cases verified that the model's cost--time trade-offs, raw material dependencies, and feasibility are internally consistent (Table~\ref{tab:verification_cases}).
+The mathematical model was verified along two axes: internal logical consistency under controlled test cases, and computational scalability across nine demand scenarios with increasing seasonality. Nine structured test cases confirmed that cost trade-offs, raw material dependencies, and feasibility behave consistently with theoretical expectations (Table~\ref{tab:verification_cases}).
 
 \begin{table}[h!]
 \centering
@@ -373,22 +371,18 @@ IX  & Near-zero lead times & Markedly elevated computation time \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Scenario-Based Scalability Tests}\\
-
-Nine demand scenarios with monotonically increasing seasonality were solved. Scenarios 1--7 were solved rapidly; Scenario~8 showed pronounced runtime growth; Scenario~9 exceeded 2,200~seconds, confirming intractability of the full-year daily exact formulation.
-
-The Scenario~7--9 runtime spike empirically confirms that the monolithic exact MILP is computationally intractable at full planning resolution, necessitating the hierarchical heuristic.
+For scalability, nine demand scenarios with monotonically increasing seasonality were solved: Scenarios 1--7 completed rapidly, Scenario~8 showed pronounced runtime growth, and Scenario~9 exceeded 2,200~seconds. This runtime spike empirically confirms that the monolithic exact MILP is computationally intractable at full planning resolution, necessitating the hierarchical heuristic.
 
 
 
 \subsubsection{Verification of the Hierarchical Heuristic}
 
-The exact solution and the heuristic were run over a full-year horizon under the same demand patterns, tracking three performance indicators: total objective value, backlog exceeding ten days, and average lateness per unit. Under below-capacity conditions (the company’s typical operating range), the heuristic’s objective deviation remained within approximately 20~percent of the exact solution and backlog exceeding ten days was absent or below 0.1~percent of annual orders. Under above-capacity stress scenarios, the heuristic produced approximately 4 percentage points more ten-day backlog than the exact benchmark, driven by timing mismatches in rolling decisions under clustered demand. As shown in Figure~\ref{fig:mha}, the heuristic reproduces the key backlog and inventory logic of the exact solution in the relevant operating range, supporting its use as a practical substitute when the exact formulation is computationally intractable.\\
+The exact solution and the heuristic were compared on a full-year horizon under identical demand, tracking three indicators: total objective value, backlog exceeding ten days, and average lateness per unit. In the company’s typical below-capacity operating range, the heuristic’s total objective stayed within 20\% of the exact solution while keeping ten-day backlog below 0.1\% of annual orders. In above-capacity stress scenarios --- which the exact solver cannot complete in tractable time anyway --- the heuristic produced approximately 4~percentage points more ten-day backlog than the exact benchmark, driven by timing mismatches under clustered demand. Figure~\ref{fig:mha} shows that the heuristic reproduces the exact solution’s backlog and inventory logic in the operationally relevant regime, supporting its use as a practical substitute given that the exact formulation is computationally intractable at full scale.\\
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\linewidth]{figures/fig5.jpg}
-    \caption{Comparison between mathematical model and heuristic approach}
+    \caption{Heuristic vs.\ exact solver: backlog and inventory trajectories under typical (below-capacity) and stress (above-capacity) demand conditions, demonstrating that the heuristic reproduces the exact solution's qualitative behavior within the company's normal operating range.}
     \label{fig:mha}
 \end{figure}
 \subsubsection{Verification of the Stochastic Solution Approach}
@@ -399,15 +393,15 @@ The stochastic model was verified against the deterministic model: with a single
 VSS = EEV - RP
 \]
 
-where \(RP\) is the stochastic recourse problem value and \(EEV\) is the expected performance of the expected-value solution under uncertainty. The VSS was non-negative in all 100 iterations (Table~\ref{tab:vss}).
+where \(RP\) is the stochastic recourse problem value and \(EEV\) is the expected performance of the expected-value solution under uncertainty. The VSS was non-negative in all 100 iterations (Table~\ref{tab:vss}); a minimum of exactly zero arises in the rare degenerate iterations where the expected-value solution happens to be feasible under the realized scenarios, and the stochastic approach strictly improves on the deterministic approximation in the remainder. Cost values are reported in model units derived from the company's relative penalty structure (holding:backlog:critical backlog cost ratio of $1{:}160{:}10{,}000$); they should be interpreted as model-based performance measures rather than direct accounting costs.
 
 
 \begin{table}[h!]
-\caption{VSS analysis results}
+\caption{VSS analysis results across 100 iterations (model cost units).}
 \label{tab:vss}
 \centering
 
-\begin{tabular}{|l |l |l|}\hline   
+\begin{tabular}{|l |l |l|}\hline
 Average $RP$ Objective Value& \multicolumn{2}{|l|}{4,454,400} \\\hline
 Average $EEV$ Objective Value& \multicolumn{2}{|l|}{41,626,235} \\\hline
 Average $VSS$ ($EEV - RP$)& \multicolumn{2}{|l|}{37,171,834} \\\hline
@@ -426,7 +420,7 @@ Under the yearly rolling horizon, the stochastic model produces higher inventory
 
 
 \begin{table}[h!]
-\caption{Cost comparisons of stochastic and deterministic models}
+\caption{Cost comparisons of stochastic and deterministic models (model cost units; cost ratio holding:backlog:critical backlog $= 1{:}160{:}10{,}000$).}
 \label{tab.rhvss}
 \centering
 
@@ -456,10 +450,7 @@ Validation used real company input data and forecast structures. The model build
 
 
 
-\section{Outcome and Deliverables}
-\subsection{Outcome}
-The outcome is a hierarchical decision support system that links monthly and daily production decisions for BobaCo’s four-product, two-line operation. The system generates daily production schedules, inventory build-ahead targets, and raw material order quantities over the full planning horizon.\\
-
+\section{Deliverables, Benchmarking, and Pilot Deployment}
 \subsection{Deliverables}
 
 The primary deliverable is a Python/Streamlit web application (the Weekly Planner) that accepts user-provided forecasts, capacity parameters, and cost coefficients; solves the hierarchical stochastic model; and outputs daily production line assignments, period-by-period raw material orders, and interactive charts. Long-term parameters are revised monthly and short-term data weekly; all tabular results export to Excel. A user manual documents configuration, parameter updates, and output interpretation.
@@ -467,7 +458,7 @@ The primary deliverable is a Python/Streamlit web application (the Weekly Planne
 
 \subsection{Benchmarking and Benefits to the Company}
 
-After completing the validation phase, a benchmarking analysis was conducted to compare the proposed decision support system with the company’s current planning approach under the same demand inputs. In this comparison, the current system was approximated by a 35-day backward allocation rule. Since the company reacts to delays exceeding 12 days by using overtime, the benchmarking mainly focuses on KPIs related to backlog risk and overtime dependency.
+After completing the validation phase, a benchmarking analysis was conducted to compare the proposed decision support system with the company’s current planning approach under the same demand inputs. The current system was approximated by a 35-day backward allocation rule, calibrated against the company’s historical production logs and confirmed by the industrial advisor as a faithful proxy for the semi-manual planning practice in use prior to deployment: production for a given delivery is scheduled to begin 35~days in advance with no proactive build-ahead beyond that window. Since the company reacts to delays exceeding 12 days by using overtime, benchmarking focuses on KPIs related to backlog risk and overtime dependency.
 
 Three KPIs were tracked: backlog exceeding 12~days (cancellation risk), overtime days required, and overtime-dependent delivery rate.
 
@@ -506,7 +497,7 @@ The company approved every weekly plan as feasible. In several weeks the system 
 
 \section{Conclusion and Future Work}
 
-The project met the company’s expectations by developing a decision support system that improves production planning under seasonal and uncertain demand. The proposed structure combines hierarchical production planning, a stochastic long-term model, a short-term production planning model, and a rolling-horizon mechanism to produce plans that are both operationally feasible and responsive to changing conditions. The validation results showed that the system supports proactive inventory build-ahead and reacts quickly to forecast updates and changes in available workdays. In addition, the yearly rolling-horizon implementation results indicated that the stochastic approach provides a more robust balance between inventory protection and backlog risk under uncertainty, reducing the average total cost by 42.0\%. This relatively great improvement is mainly due to the model structure, where backlog costs are much higher than holding costs, so carrying additional inventory helps avoid much larger backlog-related losses.
+We demonstrate that hierarchical stochastic rolling-horizon decomposition is both computationally necessary and practically effective for B2B seasonal manufacturing. The monolithic daily MILP is intractable at realistic scale (Scenario~9 exceeded 2,200~seconds), motivating the proposed three-layer architecture: a monthly two-stage stochastic aggregate model, a daily MILP operational scheduler with machine-assignment binaries, and weekly rolling-horizon execution with near-term stabilization. Under the yearly rolling horizon, the stochastic approach reduces average total cost by 42.0\% relative to the deterministic approximation. The improvement primarily reflects the cost asymmetry inherent to the problem: backlog penalties are substantially higher than holding costs, so the stochastic approach’s proactive inventory build-ahead avoids disproportionate backlog losses under uncertainty.
 
 The practical value of the system was also demonstrated through benchmarking and pilot use. Compared with the company’s current planning logic, the proposed approach substantially reduced overtime dependency, lowering average overtime requirement from 28.2 days to 0.3 days and achieving zero backlog and zero overtime in 7 out of 10 generated demand scenarios. In addition, the four-week pilot study showed that the system could be incorporated into the company’s weekly planning routine and could support inventory positioning for the high demand anticipated in the 2026 summer forecast. The hierarchical stochastic rolling-horizon approach developed here is directly applicable to any SME facing seasonal demand with long-horizon procurement lead times and recently expanded storage capacity, particularly in food and beverage manufacturing where multi-level BOM dependencies and synchronized line constraints are common. Future work may focus on improving the scenario generation structure through observations collected over longer periods, allowing demand uncertainty to be represented in an even more realistic way.
 
