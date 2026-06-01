@@ -137,12 +137,14 @@
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             margin: 2rem auto;
+            position: relative;
         }
 
-        .video-container iframe {
+        .video-container video {
             width: 100%;
             height: 100%;
-            border: none;
+            object-fit: cover;
+            display: block;
         }
 
         .scroll-indicator {
@@ -517,12 +519,15 @@
             <h1>Optimizing BobaCo's Future</h1>
             <p class="subtitle">A Production Planning Decision Support System for NESCO's Fastest-Growing Brand</p>
             <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/olSGgPb2gJI" 
-                    title="TCOTZ Project Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <video 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline
+                    poster="logo.jpg">
+                    <source src="videoplayback.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
         <a href="#problem" class="scroll-indicator">↓</a>
